@@ -2,11 +2,17 @@
 
 namespace App\Exceptions;
 
+use App\Http\Controllers\Controller;
+use BadMethodCallException;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
 class Handler extends ExceptionHandler
 {
+    const ENDPOINT_UNAVAILABLE_MESSAGE = 'Endpoint unavailable';
+    
     /**
      * A list of exception types with their corresponding custom log levels.
      *
@@ -44,5 +50,25 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Throwable  $e
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Throwable
+     */
+    public function render($request, Throwable $e)
+    {
+        if ($e instanceof ModelNotFoundException) {
+            return response()->json(['message' => 'Requested object not found'], 404);
+        } elseif ($e instanceof BadMethodCallException) {
+            return response()->json(['message' => self::ENDPOINT_UNAVAILABLE_MESSAGE], 404);
+        }
+
+        return parent::render($request, $e);
     }
 }

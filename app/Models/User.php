@@ -2,43 +2,43 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class User extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    /*
+    Eloquent relationship for the subscribed categories
+    */
+    public function subscribedCategories()
+    {
+        return $this->hasMany(SubscriptionCategory::class);
+    }
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    /*
+    Eloquent relationship for the subscribed categories
+    */
+    public function preferedChannels()
+    {
+        return $this->hasMany(SubscriptionChannel::class);
+    }
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    /*
+    TODO: Eloquent relationship for the PushNotification subscription credentials
+    */
+    public function pushSubscription()
+    {
+        //TODO 
+    }
+
+    public static function getUsersSubscribedToCategory($category_id)
+    {
+        $users = User::whereHas('subscribedCategories', function (Builder $query) use ($category_id) {
+            $query->where('id', '=', $category_id);
+        })->get();
+        return $users;
+    }
 }

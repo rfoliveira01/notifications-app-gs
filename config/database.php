@@ -118,8 +118,12 @@ return [
     | such as APC or Memcached. Laravel makes it easy to dig right in.
     |
     */
-
     'redis' => [
+
+        'driver' => 'redis',
+        'connection' => 'default',
+        'queue' => '{default}',
+        'retry_after' => 90,
 
         'client' => env('REDIS_CLIENT', 'phpredis'),
 

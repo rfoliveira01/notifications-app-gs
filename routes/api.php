@@ -1,7 +1,10 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\NotificationLogController;
+use App\Http\Controllers\SubscriptionChannelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::apiResource('categories', CategoryController::class);
+Route::apiResource('subscription-channels', SubscriptionChannelController::class);
+Route::apiResource('messages', MessageController::class);
+Route::apiResource('logs', NotificationLogController::class);

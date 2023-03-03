@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../Home.vue'
 import MessagesHome from '../Messages/MessagesHome.vue'
 const routes = [
-  { path: '/', name: 'Home', component: MessagesHome },
+  { path: '/', name: 'Home', component: Home },
   { path: '/messages', name: 'Messages', component: MessagesHome },
 ]
 

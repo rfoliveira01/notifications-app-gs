@@ -11,7 +11,6 @@ class NotificationLogController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => NotificationLog::all()], 200);
+        return response()->json(NotificationLog::orderByDesc('created_at')->get(), 200);
     }
-
 }

@@ -12,7 +12,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => Category::all()], 200);
+        return response()->json(Category::all(), 200);
     }
 
     /**
@@ -20,7 +20,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {  
-        return response()->json(['data' => $category], 200);
+        return response()->json($category, 200);
     }
 
 }

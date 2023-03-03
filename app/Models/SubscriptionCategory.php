@@ -8,8 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class SubscriptionCategory extends Model
 {
     use HasFactory;
+    /**
+     * The attributes that are allowed to be updated.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'user_id',
+        'category_id',
+    ];
 
-    public function user(){
-        $this->hasOne(User::class);
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

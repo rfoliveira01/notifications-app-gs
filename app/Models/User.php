@@ -5,10 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class User extends Model
 {
     use HasFactory;
+
+    /**
+     * The attributes that are allowed to be updated.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'email',
+        'phone_number',
+    ];
+
 
     /*
     Eloquent relationship for the subscribed categories
@@ -32,13 +45,5 @@ class User extends Model
     public function pushSubscription()
     {
         //TODO 
-    }
-
-    public static function getUsersSubscribedToCategory($category_id)
-    {
-        $users = User::whereHas('subscribedCategories', function (Builder $query) use ($category_id) {
-            $query->where('id', '=', $category_id);
-        })->get();
-        return $users;
     }
 }

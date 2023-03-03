@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
@@ -27,7 +28,8 @@ class NotificationLog extends Model
      * @var array<int, string>
      */
     protected $with = [
-        'message'
+        'message',
+        'user'
     ];
 
     /**
@@ -41,16 +43,19 @@ class NotificationLog extends Model
         'updated_at',
     ];
 
-    public function user(){
-        $this->hasOne(User::class);
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
-    public function message(){
-        $this->hasOne(Message::class);
+
+    public function message()
+    {
+        return $this->belongsTo(Message::class);
     }
-    
+
     public static function logNotification($message_id, $user_id, $channel)
     {
-        if(!in_array($channel,SubscriptionChannel::SUBSCRIPTION_CHANNELS)){
+        if (!in_array($channel, SubscriptionChannel::SUBSCRIPTION_CHANNELS)) {
             throw new InvalidArgumentException("Invalid notification channel");
         }
 

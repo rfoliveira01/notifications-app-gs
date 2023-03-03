@@ -14,7 +14,7 @@ class MessageController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => Message::all()->sortByDesc('created_at')], 200);
+        return response()->json(Message::all()->sortByDesc('created_at'), 200);
     }
 
     /**
@@ -34,12 +34,12 @@ class MessageController extends Controller
         try {
 
             $message->save();
-            
+
             ProcessNotificationSubscription::dispatch($message);
 
-            return response()->json(['data' => $message], 200);
+            return response()->json($message, 200);
         } catch (Exception $e) {
-            return response()->json(['data' => "Could not save the message."], 400);
+            return response()->json(["Could not save the message."], 400);
         }
     }
 
@@ -48,6 +48,6 @@ class MessageController extends Controller
      */
     public function show(Message $message)
     {
-        return response()->json(['data' => $message], 200);
+        return response()->json($message, 200);
     }
 }

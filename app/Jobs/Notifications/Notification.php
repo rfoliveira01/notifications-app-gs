@@ -6,12 +6,13 @@ use App\Models\Message;
 use App\Models\NotificationLog;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Broadcasting\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-abstract class Notification implements ShouldQueue
+abstract class Notification implements ShouldQueue, ShouldBeUnique
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -39,5 +40,13 @@ abstract class Notification implements ShouldQueue
     {
         $this->dispatchNotification();
         NotificationLog::logNotification($this->message->id, $this->user->id, $this->getNotificationChannel());
+    }
+
+     /**
+     * The unique ID of the job.
+     */
+    public function uniqueId(): string
+    {
+        return $this->message->id+'#'+$this->user+'#'+$this->getNotificationChannel();
     }
 }

@@ -44,20 +44,12 @@ class UsersSeeder extends Seeder
                     'category_id' => 1,
                 ],
                 [
-                    'user_id' => 1,
+                    'user_id' => 2,
                     'category_id' => 2,
                 ],
                 [
-                    'user_id' => 2,
-                    'category_id' => 3,
-                ],
-                [
-                    'user_id' => 2,
-                    'category_id' => 1,
-                ],
-                [
                     'user_id' => 3,
-                    'category_id' => 1,
+                    'category_id' => 3,
                 ],
                 [
                     'user_id' => 3,
@@ -65,8 +57,8 @@ class UsersSeeder extends Seeder
                 ],
                 [
                     'user_id' => 3,
-                    'category_id' => 3,
-                ],
+                    'category_id' => 1,
+                ]
             ]
         );
         DB::table('subscription_channels')->insert(
@@ -76,11 +68,7 @@ class UsersSeeder extends Seeder
                     'channel' => SubscriptionChannel::SUBSCRIPTION_CHANNEL_EMAIL,
                 ],
                 [
-                    'user_id' => 1,
-                    'channel' => SubscriptionChannel::SUBSCRIPTION_CHANNEL_SMS,
-                ],
-                [
-                    'user_id' => 3,
+                    'user_id' => 2,
                     'channel' => SubscriptionChannel::SUBSCRIPTION_CHANNEL_SMS,
                 ],
                 [
@@ -88,17 +76,9 @@ class UsersSeeder extends Seeder
                     'channel' => SubscriptionChannel::SUBSCRIPTION_CHANNEL_PUSH_NOTIFICATION,
                 ],
                 [
-                    'user_id' => 2,
-                    'channel' => SubscriptionChannel::SUBSCRIPTION_CHANNEL_SMS,
-                ],
-                [
-                    'user_id' => 2,
+                    'user_id' => 3,
                     'channel' => SubscriptionChannel::SUBSCRIPTION_CHANNEL_EMAIL,
-                ],
-                [
-                    'user_id' => 2,
-                    'channel' => SubscriptionChannel::SUBSCRIPTION_CHANNEL_PUSH_NOTIFICATION,
-                ],
+                ]
             ]
         );
     }

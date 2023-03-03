@@ -18,6 +18,8 @@ use App\Http\Controllers\SubscriptionChannelController;
 */
 
 Route::apiResource('categories', CategoryController::class);
-Route::apiResource('subscription-channels', SubscriptionChannelController::class);
 Route::apiResource('messages', MessageController::class);
 Route::apiResource('logs', NotificationLogController::class);
+Route::fallback(function (){
+    abort(404, 'API resource not found');
+});

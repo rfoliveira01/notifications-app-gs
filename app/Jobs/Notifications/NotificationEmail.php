@@ -3,8 +3,6 @@
 namespace App\Jobs\Notifications;
 
 use App\Models\SubscriptionChannel;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 class NotificationEmail extends Notification
 {
     public function getNotificationChannel():string

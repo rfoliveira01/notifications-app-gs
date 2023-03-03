@@ -63,9 +63,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $e)
     {
-        if ($e instanceof ModelNotFoundException) {
+        if ($e instanceof ModelNotFoundException && $request->wantsJson()) {
             return response()->json(['message' => 'Requested object not found'], 404);
-        } elseif ($e instanceof BadMethodCallException) {
+        } elseif ($e instanceof BadMethodCallException && $request->wantsJson()) {
             return response()->json(['message' => self::ENDPOINT_UNAVAILABLE_MESSAGE], 404);
         }
 

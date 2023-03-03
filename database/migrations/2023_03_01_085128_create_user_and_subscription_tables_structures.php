@@ -22,6 +22,7 @@ return new class extends Migration
         });
 
         Schema::create('subscription_categories', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('user_id');
             $table->foreignId('category_id');
             $table->foreign('user_id')->references('id')->on('users');
@@ -31,19 +32,13 @@ return new class extends Migration
         });
 
         Schema::create('subscription_channels', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->enum('channel',['SMS','Email','Push Notification']);
             $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
         });
-
-        Artisan::call(
-            'db:seed',
-            [
-                '--class' => 'UsersSeeder'
-            ]
-        );
     }
 
     /**

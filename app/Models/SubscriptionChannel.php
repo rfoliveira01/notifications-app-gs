@@ -18,4 +18,14 @@ class SubscriptionChannel extends Model
         self::SUBSCRIPTION_CHANNEL_EMAIL,
         self::SUBSCRIPTION_CHANNEL_PUSH_NOTIFICATION
     ];
+
+    /**
+     * The attributes that are allowed to be updated.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'user_id',
+        'channel'
+    ];
 }
